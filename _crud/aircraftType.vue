@@ -37,7 +37,7 @@ export default {
             },
             {
               name: 'manufacturer',
-              label: this.$tr('icommerce.cms.form.manufacturer'),
+              label: this.$tr('ifly.cms.form.manufacturer'),
               field: 'manufacturer',
               align: 'left',
               action: 'edit'
@@ -96,7 +96,7 @@ export default {
             value: "",
             type: "input",
             props: {
-              label: `${this.$tr("icommerce.cms.form.manufacturer")}*`,
+              label: `${this.$tr("ifly.cms.form.manufacturer")}*`,
               rules: [(val) => !!val || this.$tr("isite.cms.message.fieldRequired")],
             },
           },

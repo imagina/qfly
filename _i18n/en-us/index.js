@@ -80,7 +80,8 @@ export default {
         "updateWorkOrder": "Update Work Order",
         "newWorkOrder": "New Work Order",
         "cargoTotalKilosUnloaded": "Kilos Unloaded",
-        "cargoTotalKilosLoaded": "Kilos Loaded"
+        "cargoTotalKilosLoaded": "Kilos Loaded",
+        "manufacturer": "Manufacturer",
       },
       "label": {
         "workOrders": "Work Oders",
