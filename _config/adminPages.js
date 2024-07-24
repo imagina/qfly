@@ -9,7 +9,7 @@ export default {
     page: () => import('modules/qcrud/_pages/admin/crudPage'),
     layout: () => import('layouts/master.vue'),
     title: 'ifly.cms.sidebar.aircraftType',
-    icon: 'fab fa-avianex',
+    icon: 'fa-light fa-plane',
     subHeader: {
       refresh: true,
     }
