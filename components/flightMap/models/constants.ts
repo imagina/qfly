@@ -5,6 +5,7 @@ export const DEFAULT_POLYGON_COLOR = '#FFA000'
 export const AIRCRAFT_TYPE_DEFAULT = 'FLIGHT'
 
 export const DEGREES = 360
+const mapId = '4504f8b37365c3d0'
 
 export const POLYGON_ATTRIBUTES = {
     geodesic: true,
@@ -16,6 +17,7 @@ export const POLYGON_ATTRIBUTES = {
 export const MAP_ATTRIBUTES = {
     center: { lat: 37.09024, lng: -95.712891 },
     zoom: 3,
+    mapId,
     minZoom: 2,
     streetViewControl: false,
     scrollwheel: true,

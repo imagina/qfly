@@ -1,4 +1,4 @@
-import Vue, { computed, ref, getCurrentInstance } from 'vue';
+import { computed, ref } from 'vue';
 import momentTimezone from "moment-timezone";
 import minutesToHours from '../helpers/minutesToHours'
 import { TableCardsController, TableCardsControllerProps, TableColumn } from '../models/interfaces';
@@ -6,9 +6,8 @@ import { routePush } from '../helpers/routePush';
 
 export default function tableCardsController(props: TableCardsControllerProps): TableCardsController {
     const dateNotFound = 'Date not found';
-    const proxy = (getCurrentInstance() as { proxy: Vue }).proxy as Vue;
     const showWorkOrderColumn = computed(() => props.showWorkOrderColumn);
-  
+
     const columns = ref<TableColumn[]>([
         {
             name: 'date',
@@ -109,7 +108,7 @@ export default function tableCardsController(props: TableCardsControllerProps): 
     }
 
     function redirect(row) {
-        routePush(proxy, row)
+        routePush(row)
     }
 
     return { columns, title, dataTable, minutesToHours, redirect }

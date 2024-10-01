@@ -2,7 +2,7 @@
 </template>
 <script>
 //Components
-import colorTailwind from '@imagina/qsite/_resources/models/colorTailwind.js'
+import colorTailwind from 'modules/qsite/_resources/models/colorTailwind.js'
 
 export default {
   data() {
@@ -35,21 +35,14 @@ export default {
               label: this.$tr('ifly.cms.form.airlineName'),
               field: 'airlineName',
               align: 'left',
+              action: 'edit'
             },
             {
               name: 'airlineShortName',
               label: this.$tr('ifly.cms.form.airlineShortName'),
               field: 'airlineShortName',
               align: 'left',
-            },
-            {
-              name: 'color',
-              label: 'Color',
-              field: 'color',
-              align: 'left',
-              formatColumn: row => ({
-                bgTextColor: row.color ? `tw-bg-${row.color}` : ''
-              }),
+              action: 'edit'
             },
             {
               name: 'airlineIataCode',
@@ -121,17 +114,6 @@ export default {
             props: {
               label: `${this.$tr('ifly.cms.form.airlineIcaoCode')}*`,
               rules: [(val) => !!val || this.$tr("isite.cms.message.fieldRequired")],
-            },
-          },
-          color : {
-            value: "",
-            type: "select",
-            props: {
-              selectColor: true,
-              colorType: 'tailwindcss',
-              label: 'Font Color',
-              rules: [(val) => !!val || this.$tr("isite.cms.message.fieldRequired")],
-              options: colorTailwind,
             },
           },
         }

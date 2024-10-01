@@ -1,4 +1,4 @@
-const pages = config('pages') // Get Pages from config
+import pages from 'src/setup/pages' // Get Pages from config
 
 //Blog
 export default [
@@ -9,7 +9,6 @@ export default [
       pages.qfly.aircraftType,
       pages.qfly.airline,
       pages.qfly.airport,
-      pages.qfly.flight,
       pages.qfly.flightSchedule,
       pages.qfly.flightScheduleLeg,
       pages.qfly.flightStatuses,

@@ -2,7 +2,7 @@
 
 </template>
 <script>
-import colorTailwind from '@imagina/qsite/_resources/models/colorTailwind.js'
+import colorTailwind from 'modules/qsite/_resources/models/colorTailwind.js'
 //Component
 export default {
   data() {
@@ -91,7 +91,7 @@ export default {
             type: "select",
             props: {
               selectColor: true,
-              colorType: 'tailwindcss',             
+              colorType: 'tailwindcss',
               label: 'Status Color',
               rules: [(val) => !!val || this.$tr("isite.cms.message.fieldRequired")],
               options: colorTailwind,
@@ -115,5 +115,5 @@ export default {
   }
 }
 </script>
-<style lang="stylus">
+<style lang="scss">
 </style>

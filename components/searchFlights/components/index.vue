@@ -133,7 +133,7 @@ export default defineComponent({
           Recheck the flight number/identifier.
         </div>
     </div>
-    <!--<div v-if="
+    <div v-if="
       store.flightList.length > 0 &&
       !isSearch && 
       !loading && 
@@ -155,7 +155,7 @@ export default defineComponent({
         <div>
           No statistics available
         </div>
-    </div>-->
+    </div>
   </div>
 </template>
 

@@ -1,17 +1,16 @@
-import Vue, { 
-    onMounted, 
+import Vue, {
+    onMounted,
     onBeforeUnmount,
-    ref, 
-    toRefs, 
-    computed, 
-    getCurrentInstance 
+    ref,
+    toRefs,
+    computed
 } from 'vue'
-import { 
-    FlightDetail, 
-    FlightPosition, 
-    FlightFlifo, 
-    Airport, 
-    Icon, 
+import {
+    FlightDetail,
+    FlightPosition,
+    FlightFlifo,
+    Airport,
+    Icon,
     MarkerIcon,
     LabelProperties,
     Coordinate,
@@ -41,10 +40,10 @@ import {
 import { flightDetailModel } from '../models/defaultModels/flightDetailModel'
 import { getFlights } from '../services/getFlightPosition.service'
 import { getMapScreenshot } from '../services/getMapScreenshot.service'
+import { store } from 'src/plugins/utils'
 
 export const flightMapController = (props: any) => {
     const mapRef = ref<Element | null>(null)
-    const proxy = (getCurrentInstance() as { proxy: Vue }).proxy as Vue
     const airportOriginSvg = require('../assets/icon/originAirport.svg');
     const airportDestinationSvg = require('../assets/icon/destinationAirport.svg')
     let map: google.maps.Map | undefined;
@@ -57,7 +56,7 @@ export const flightMapController = (props: any) => {
     const completedFlights = new Set()
     const activeFlights = new Map()
     const webSocketManager = new WebSocketManager()
-    const apiKey = proxy.$store.getters['qsiteApp/getSettingValueByName']('isite::api-maps')
+    const apiKey = store.getSetting('isite::api-maps')
     const flightPositionList = ref<FlightPosition[]>([])
     const flightFlifoList = ref<FlightFlifo[]>([])
     const flightPositionData = ref<FlightDetail>(flightDetailModel)
@@ -82,14 +81,16 @@ export const flightMapController = (props: any) => {
         if (map) return
 
         try {
+            const { Map } = await google.maps.importLibrary("maps");
+
             const loader = new Loader({
                 apiKey: apiKey,
                 version: "weekly",
             });
-    
+
             await loader.load().then(() => {
                 if (mapRef.value) {
-                    map = new google.maps.Map(mapRef.value, {
+                    map = new Map(mapRef.value, {
                         ...MAP_ATTRIBUTES,
                         mapTypeId: google.maps.MapTypeId.TERRAIN,
                     })
@@ -122,15 +123,15 @@ export const flightMapController = (props: any) => {
             const infoWindow = new google.maps.InfoWindow({
                 content: `<p>${contentPopover}</p>`,
             })
-    
+
             marker.addListener("mouseover", () => {
                 infoWindow.open(map, marker)
             })
-    
+
             marker.addListener("mouseout", () => {
                 infoWindow.close()
             })
-    
+
             if (!flightId.value) {
                 marker.addListener("click", () => {
                     //TODO
@@ -142,7 +143,7 @@ export const flightMapController = (props: any) => {
         }
     }
 
-    const paintMarker = (
+    const paintMarker = async (
         rotation:number = 0,
         coordinates: (number | null)[],
         contentPopover?: string | null | undefined,
@@ -176,14 +177,14 @@ export const flightMapController = (props: any) => {
                     lat: Number(coordinates[0]),
                     lng: Number(coordinates[1]),
                 },
-                map: map,
+                map,
                 icon: url ? iconUrl : icon,
                 label: label ? labelProperties : '',
                 zIndex: url ? 1 : 2,
             })
-    
+
             addListener(marker, contentPopover)
-    
+
             return marker
         } catch (err) {
             console.error(err)
@@ -228,7 +229,7 @@ export const flightMapController = (props: any) => {
         try {
             const flight = activeFlights.get(id)
             const newPosition = new google.maps.LatLng(
-                coordinates[0], 
+                coordinates[0],
                 coordinates[1]
             )
             if (newPosition) {
@@ -320,7 +321,7 @@ export const flightMapController = (props: any) => {
     }
 
     const searchFirehoseData = (id: string): [
-        FlightPosition | undefined, 
+        FlightPosition | undefined,
         FlightFlifo | undefined
     ] => {
         const thereIsFlight = (flight: FlightPosition | FlightFlifo) => flight?.id === id;
@@ -340,14 +341,14 @@ export const flightMapController = (props: any) => {
         try {
             const response = await getFlights(workOrderId.value)
             const data = response.data
-    
+
             const flightPosition = data?.flightPosition
-    
-            const lat = flightPosition?.lastPositionLatitude 
-                ? Number(flightPosition?.lastPositionLatitude) 
+
+            const lat = flightPosition?.lastPositionLatitude
+                ? Number(flightPosition?.lastPositionLatitude)
                 : null
-            const lon = flightPosition?.lastPositionLongitude 
-                ? Number(flightPosition?.lastPositionLongitude) 
+            const lon = flightPosition?.lastPositionLongitude
+                ? Number(flightPosition?.lastPositionLongitude)
                 : null
 
             const heading = flightPosition?.lastPositionHeading
@@ -356,7 +357,7 @@ export const flightMapController = (props: any) => {
                 origin: originAirport,
                 destination: destinationAirport
             } = airport(data)
-    
+
             const flightData = {
                 originAirport,
                 destinationAirport,
@@ -366,7 +367,7 @@ export const flightMapController = (props: any) => {
                 flightCoordinates: [lat, lon]
             }
             flightPositionData.value = flightData
-    
+
             return flightData
         } catch (err) {
             console.error(err)
@@ -382,8 +383,8 @@ export const flightMapController = (props: any) => {
 
             if (flightFoundInFirehose) {
                 return consumingFromFirehose(
-                    positionTypeFlight, 
-                    flifoTypeFlight, 
+                    positionTypeFlight,
+                    flifoTypeFlight,
                     flightDetails.value
                 )
             }
@@ -401,26 +402,26 @@ export const flightMapController = (props: any) => {
     }
 
     const focusMapOnMarkers = (
-        pointOne: (number | null)[], 
+        pointOne: (number | null)[],
         pointTwo: (number | null)[]
     ) => {
         if (!pointOne[0] || !pointOne[1] || !pointTwo[0] || !pointTwo[1]) return
 
         try {
             const locationOne = new google.maps.LatLng(
-                pointOne[0], 
+                pointOne[0],
                 pointOne[1]
             )
             const locationTwo = new google.maps.LatLng(
-                pointTwo[0], 
+                pointTwo[0],
                 pointTwo[1]
             )
-            
+
             const bounds = new google.maps.LatLngBounds()
-    
+
             bounds.extend(locationOne)
             bounds.extend(locationTwo)
-            
+
             if (map) map.fitBounds(bounds)
 
         } catch (err) {
@@ -460,11 +461,11 @@ export const flightMapController = (props: any) => {
         const rotation = heading ? heading % DEGREES : 0
 
         const data: CreateFlightMarkerProps = {
-            id: id || aircraftType, 
-            rotation, 
+            id: id || aircraftType,
+            rotation,
             flightCoordinates,
         }
-        
+
         if (!activeFlights.has(id)) {
             createFlightMarker({...data , aircraftType })
         } else {
@@ -482,13 +483,13 @@ export const flightMapController = (props: any) => {
             console.log('firehose', flight)
 
             flightPositionList.value = saveFirehoseInformation<FlightPosition>(
-                FLIGHT_TYPE.position, 
-                flightPositionList.value, 
+                FLIGHT_TYPE.position,
+                flightPositionList.value,
                 flight
             )
             flightFlifoList.value = saveFirehoseInformation<FlightFlifo>(
-                FLIGHT_TYPE.flifo, 
-                flightFlifoList.value, 
+                FLIGHT_TYPE.flifo,
+                flightFlifoList.value,
                 flight
             )
 
@@ -502,9 +503,9 @@ export const flightMapController = (props: any) => {
             if (flightId.value || flightDetails.value || workOrderId.value) {
                 markRoute(wayPoints)
                 markPlanePosition(
-                    heading, 
-                    flightCoordinates, 
-                    aircraftType, 
+                    heading,
+                    flightCoordinates,
+                    aircraftType,
                     flightId.value
                 )
                 return
@@ -570,7 +571,7 @@ export const flightMapController = (props: any) => {
             await caseThree()
             return
         }
-        
+
         establishWebSocketConnection()
         listenToMessages()
     }
@@ -579,7 +580,7 @@ export const flightMapController = (props: any) => {
         isPolyline.value = false
         webSocketManager.close()
     })
-    
+
     onMounted(async () => {
         await initMap()
         await flightMapTypeHandling()

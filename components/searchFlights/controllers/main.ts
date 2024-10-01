@@ -1,4 +1,4 @@
-import { computed, getCurrentInstance, onMounted, onBeforeUnmount } from 'vue';
+import { computed, onMounted, onBeforeUnmount } from 'vue';
 import { getFlightaware } from '../services/getFligth';
 import store from '../store/searchFlights'
 import { Flightaware, MainController, Search } from '../models/interfaces';
@@ -6,7 +6,6 @@ import { SEARCH_FIELDS } from '../models/defaultModels/constants';
 import { routePush } from '../helpers/routePush';
 
 export default function mainController(props: any): MainController {
-    const proxy = (getCurrentInstance() as { proxy: Vue }).proxy as Vue;
     const upcomingFlights = computed<Flightaware[]>(() => store.flightList.filter(item => item.status.includes('Scheduled')))
     const routeFlight = computed<Flightaware[]>(() => store.flightList.filter(item => item.status.includes('Route')))
     const pastFlights = computed<Flightaware[]>(() => store.flightList.filter(item => !item.status.includes('Scheduled') && !item.status.includes('Route')))
@@ -26,7 +25,7 @@ export default function mainController(props: any): MainController {
     });
     const methods = {
         getFlightaware,
-        redirectWo: () => { routePush(proxy, flight.value) },
+        redirectWo: () => { routePush(flight.value) },
     }
     onMounted(async () => {
         if(!props.isSearch) {

@@ -32,13 +32,15 @@ export default {
               name: 'aircraftModel',
               label: this.$tr('ifly.cms.form.aircraftModel'),
               field: 'model',
-              align: 'left'
+              align: 'left',
+              action: 'edit'
             },
             {
               name: 'manufacturer',
-              label: this.$tr('icommerce.cms.form.manufacturer'),
+              label: this.$tr('ifly.cms.form.manufacturer'),
               field: 'manufacturer',
-              align: 'left'
+              align: 'left',
+              action: 'edit'
             },
             {
               name: 'description',
@@ -94,7 +96,7 @@ export default {
             value: "",
             type: "input",
             props: {
-              label: `${this.$tr("icommerce.cms.form.manufacturer")}*`,
+              label: `${this.$tr("ifly.cms.form.manufacturer")}*`,
               rules: [(val) => !!val || this.$tr("isite.cms.message.fieldRequired")],
             },
           },
@@ -126,5 +128,5 @@ export default {
   }
 }
 </script>
-<style lang="stylus">
+<style lang="scss">
 </style>

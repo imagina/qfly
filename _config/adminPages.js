@@ -6,10 +6,10 @@ export default {
     path: '/fly/aircraftType/index',
     name: 'qfly.admin.aircraftType',
     crud: import('../_crud/aircraftType'),
-    page: () => import('@imagina/qcrud/_pages/admin/crudPage'),
-    layout: () => import('@imagina/qsite/_layouts/master.vue'),
+    page: () => import('modules/qcrud/_pages/admin/crudPage'),
+    layout: () => import('layouts/master.vue'),
     title: 'ifly.cms.sidebar.aircraftType',
-    icon: 'fab fa-avianex',
+    icon: 'fa-light fa-plane',
     subHeader: {
       refresh: true,
     }
@@ -21,8 +21,8 @@ export default {
     path: '/fly/airline/index',
     name: 'qfly.admin.airline',
     crud: import('../_crud/airline'),
-    page: () => import('@imagina/qcrud/_pages/admin/crudPage'),
-    layout: () => import('@imagina/qsite/_layouts/master.vue'),
+    page: () => import('modules/qcrud/_pages/admin/crudPage'),
+    layout: () => import('layouts/master.vue'),
     title: 'ifly.cms.sidebar.airline',
     icon: 'fal fa-luggage-cart',
     subHeader: {
@@ -36,25 +36,10 @@ export default {
     path: '/fly/airport/index',
     name: 'qfly.admin.airport',
     crud: import('../_crud/airport'),
-    page: () => import('@imagina/qcrud/_pages/admin/crudPage'),
-    layout: () => import('@imagina/qsite/_layouts/master.vue'),
+    page: () => import('modules/qcrud/_pages/admin/crudPage'),
+    layout: () => import('layouts/master.vue'),
     title: 'ifly.cms.sidebar.airport',
     icon: 'fal fa-city',
-    subHeader: {
-      refresh: true,
-    }
-  },
-  flight: {
-    permission: 'iflight.flight.manage',
-    activated: true,
-    authenticated: true,
-    path: '/fly/flight/index',
-    name: 'qfly.admin.flight',
-    crud: import('../_crud/flight'),
-    page: () => import('@imagina/qcrud/_pages/admin/crudPage'),
-    layout: () => import('@imagina/qsite/_layouts/master.vue'),
-    title: 'ifly.cms.sidebar.flightInfo',
-    icon: 'fal fa-plane-departure',
     subHeader: {
       refresh: true,
     }
@@ -66,8 +51,8 @@ export default {
     path: '/fly/flightSchedule/index',
     name: 'qfly.admin.flightSchedule',
     crud: import('../_crud/flightSchedule'),
-    page: () => import('@imagina/qcrud/_pages/admin/crudPage'),
-    layout: () => import('@imagina/qsite/_layouts/master.vue'),
+    page: () => import('modules/qcrud/_pages/admin/crudPage'),
+    layout: () => import('layouts/master.vue'),
     title: 'ifly.cms.sidebar.flightSchedule',
     icon: 'fas fa-clock',
     subHeader: {
@@ -81,8 +66,8 @@ export default {
     path: '/fly/flightScheduleLeg/index',
     name: 'qfly.admin.flightScheduleLeg',
     crud: import('../_crud/flightScheduleLeg'),
-    page: () => import('@imagina/qcrud/_pages/admin/crudPage'),
-    layout: () => import('@imagina/qsite/_layouts/master.vue'),
+    page: () => import('modules/qcrud/_pages/admin/crudPage'),
+    layout: () => import('layouts/master.vue'),
     title: 'ifly.cms.sidebar.flightScheduleLeg',
     icon: 'fas fa-braille',
     subHeader: {
@@ -96,8 +81,8 @@ export default {
     path: '/fly/flight-statuses/index',
     name: 'qfly.admin.flightStatus',
     crud: import('../_crud/flightStatus'),
-    page: () => import('@imagina/qcrud/_pages/admin/crudPage'),
-    layout: () => import('@imagina/qsite/_layouts/master.vue'),
+    page: () => import('modules/qcrud/_pages/admin/crudPage'),
+    layout: () => import('layouts/master.vue'),
     title: 'ifly.cms.sidebar.flightStatuses',
     icon: 'fas fa-braille',
     subHeader: {
@@ -111,8 +96,8 @@ export default {
     path: '/fly/search-flight/index',
     name: 'qfly.admin.searchFlight',
     crud: import('../components/searchFlights/components/index.vue'),
-    page: () => import('@imagina/qcrud/_pages/admin/crudPage'),
-    layout: () => import('@imagina/qsite/_layouts/master.vue'),
+    page: () => import('modules/qcrud/_pages/admin/crudPage'),
+    layout: () => import('layouts/master.vue'),
     title: 'ifly.cms.sidebar.flightsTracker',
     icon: 'fa-thin fa-magnifying-glass-location',
     subHeader: {
@@ -126,8 +111,8 @@ export default {
     path: '/fly/map',
     name: 'qfly.admin.map',
     crud: import('../components/flightMap/components/flightMap.vue'),
-    page: () => import('@imagina/qcrud/_pages/admin/crudPage'),
-    layout: () => import('@imagina/qsite/_layouts/master.vue'),
+    page: () => import('modules/qcrud/_pages/admin/crudPage'),
+    layout: () => import('layouts/master.vue'),
     title: 'Map',
     icon: 'fa-solid fa-map',
     subHeader: {
