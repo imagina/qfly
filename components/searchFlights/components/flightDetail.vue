@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { defineComponent } from 'vue';
 import flightDetailController from '../controllers/flightDetail'
 import flightMap from '../../flightMap/components/flightMap.vue'
 
@@ -191,10 +191,10 @@ export default defineComponent({
 
 .flight-map-traker .q-slider__thumb:last-child:before {
   @apply tw-absolute tw-z-10 tw-text-2xl;
-  font-family: "Font Awesome 6 Sharp";
+  font-family: "Font Awesome 6 Pro";
   content: "\f072";
   font-weight: 900;
-  color: var(--q-color-positive);
+  color: var(--q-positive);
   top: -10px;
   text-shadow: 0px 9px 5px #607d8b, 0px -4px 10px rgba(255 255 255 0.3);
   display: var(--display-range);
@@ -236,12 +236,12 @@ export default defineComponent({
 
 .flight-map-traker .q-slider__track-container:before {
   @apply tw-left-0;
-  background-color: var(--q-color-positive);
+  background-color: var(--q-positive);
 }
 
 .flight-map-traker .q-slider__track-container:after {
   @apply tw-right-0 tw-z-0;
-  background-color: var(--q-color-positive);
+  background-color: var(--q-positive);
 }
 .flight-map-traker .q-slider__inner {
   @apply tw-opacity-30 tw-bg-gray-200;

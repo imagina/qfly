@@ -1,4 +1,4 @@
-import baseService from '@imagina/qcrud/_services/baseService.js'
+import baseService from 'modules/qcrud/_services/baseService.js'
 
 export const getMapScreenshot = async (id: string) => {
   const API_ROUTES = 'apiRoutes.qfly.flightsFlightawareMap'

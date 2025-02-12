@@ -91,7 +91,7 @@ export default defineComponent({
                     tw-text-gray-500
                 "
             >
-                <i class="fa-sharp fa-solid fa-map-location-dot tw-text-6xl" />
+                <i class="fa-solid fa-map-location-dot tw-text-6xl" />
                 <p class="tw-mt-3">No data to show on the map</p>
             </q-card>
         </div>

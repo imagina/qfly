@@ -32,6 +32,7 @@ export default {
               label: this.$tr("ifly.cms.form.airportName"),
               field: "airportName",
               align: "rigth",
+              action: 'edit'
             },
             {
               name: "airportIataCode",

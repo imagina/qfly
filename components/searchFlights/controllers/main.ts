@@ -1,4 +1,4 @@
-import { computed, getCurrentInstance, onMounted, onBeforeUnmount } from 'vue';
+import { computed, onMounted, onBeforeUnmount } from 'vue';
 import { getFlightaware } from '../services/getFligth';
 import store from '../store/searchFlights'
 import { Flightaware, MainController, Search } from '../models/interfaces';
@@ -6,7 +6,6 @@ import { SEARCH_FIELDS } from '../models/defaultModels/constants';
 import { routePush } from '../helpers/routePush';
 
 export default function mainController(props: any): MainController {
-    const proxy = (getCurrentInstance() as { proxy: Vue }).proxy as Vue;
     const upcomingFlights = computed<Flightaware[]>(() => store.flightList.filter(item => item.status.includes('Scheduled')))
     const routeFlight = computed<Flightaware[]>(() => store.flightList.filter(item => item.status.includes('Route')))
     const pastFlights = computed<Flightaware[]>(() => store.flightList.filter(item => !item.status.includes('Scheduled') && !item.status.includes('Route')))
@@ -15,14 +14,18 @@ export default function mainController(props: any): MainController {
     const loading = computed<boolean>(() => store.loading);
     const fields = computed<Search>(() => ({ ...SEARCH_FIELDS }))
     const validateFaFlightId = computed(() => {
-        if( (flight.value as any).workOrder && props.workOrderData && props.workOrderData.faFlightId) {
-            return (flight.value as any).workOrder.faFlightId == props.workOrderData.faFlightId
+        const workOrder = (flight.value as any).workOrder;
+        const faFlightId = workOrder && props.workOrderData.type === 'inbound' 
+        ? workOrder?.faFlightId 
+        : workOrder?.outboundFaFlightId;
+        if( workOrder && props.workOrderData && props.workOrderData.faFlightId) {
+            return faFlightId == props.workOrderData.faFlightId
         }
         return false;
     });
     const methods = {
         getFlightaware,
-        redirectWo: () => { routePush(proxy, flight.value) },
+        redirectWo: () => { routePush(flight.value) },
     }
     onMounted(async () => {
         if(!props.isSearch) {

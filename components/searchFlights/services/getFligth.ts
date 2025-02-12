@@ -1,7 +1,6 @@
-import baseService from '@imagina/qcrud/_services/baseService.js'
+import baseService from 'modules/qcrud/_services/baseService.js'
 import searchFlightsStore from '../store/searchFlights';
-import alert from '@imagina/qsite/_plugins/alert.js'
-import moment from 'moment';
+import { alert } from 'src/plugins/utils'
 
 export async function getFlightaware(workOrder: any = null): Promise<void> {
     try {
@@ -64,8 +63,9 @@ function setSelectedFligth(workOrder, response) {
         searchFlightsStore.selectedFligth = route || null;
     } else {
         searchFlightsStore.selectedFligth = response.data.find(item => {
-            if (item.workOrder && item.workOrder.faFlightId) {
-                return item.workOrder.faFlightId == workOrder.faFlightId;
+            const faFlightId = item.workOrder && workOrder.type === 'inbound' ? item.workOrder.faFlightId : item.workOrder?.outboundFaFlightId;
+            if (item.workOrder && faFlightId) {
+                return faFlightId == workOrder.faFlightId;
             }
             return item.status.includes('Route');
         }) || (response.data.length > 1 ? response.data[1] : null) || response.data[0];

@@ -3,8 +3,8 @@
         <q-table 
             :title="title" 
             dense 
-            :data="dataTable" 
-            :columns="columns" 
+            :rows="dataTable" 
+            :columns="columns"
             :visible-columns="['']"
         >
             <template v-slot:body-cell="props">
